@@ -49,8 +49,4 @@
     choixUO.value = false
     console.log(`Réception unité organisationnelle \njson: ${jsonData}`)
   }
-
-  watch(modeChoixUO, (newValue) => {
-    console.log(`Mode de choix changé : ${newValue}`)
-  })
 </script>
