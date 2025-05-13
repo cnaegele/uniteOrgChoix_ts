@@ -30,6 +30,8 @@
           <UniteOrgChoix
             :modeChoix="modeChoixUO" 
             :uniteHorsVdL="bUniteHorsVdL"
+            :ssServer="ssServer"
+            :ssPage="ssPage"
             @choixUniteOrg="receptionUniteOrg"
           ></UniteOrgChoix>
         </Suspense>
@@ -44,6 +46,11 @@
   const choixUO = ref<boolean>(false)
   const modeChoixUO = ref<string>('unique')
   const bUniteHorsVdL = ref<boolean>(false)
+  let ssServer =  ref<string>('')
+  if (import.meta.env.DEV) {
+      ssServer = 'https://mygolux.lausanne.ch'    
+  }
+  const ssPage = ref<string>('/goeland/uniteorg/axios/uniteorg_liste.php')
 
   const receptionUniteOrg = (jsonData: string) => {
     choixUO.value = false

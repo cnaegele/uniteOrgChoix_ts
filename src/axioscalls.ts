@@ -15,14 +15,9 @@ interface ApiResponse {
   data?: UniteOrg[];
 }
 
-let g_devurl: string = ''
-if (import.meta.env.DEV) {
-    g_devurl = 'https://mygolux.lausanne.ch'    
-}
-
-export async function getUnitesOrgListe(jsonCriteres: string = '{}'): Promise<ApiResponse> {
+export async function getUnitesOrgListe(server: string = '', page: string, jsonCriteres: string = '{}'): Promise<ApiResponse> {
     const pathurluniteorg: string = '/goeland/uniteorg/axios/'
-    const urluol: string = `${g_devurl}${pathurluniteorg}uniteorg_liste.php`
+    const urluol: string = `${server}${page}`
     const params = new URLSearchParams([['jsoncriteres', jsonCriteres]])
     try {
         const response: AxiosResponse<ApiResponse> = await axios.get(urluol, { params })

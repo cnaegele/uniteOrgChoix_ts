@@ -637,6 +637,8 @@ import type { UniteOrg }  from '@/axioscalls.js'
 interface Props {
   modeChoix?: string
   uniteHorsVdL?: boolean  // Optionnel et de type booléen
+  ssServer?: string
+  ssPage?: string
 }
 
 type UnitesOrg = UniteOrg[]
@@ -658,8 +660,11 @@ interface UniteOrgChoix {
 
 const props = withDefaults(defineProps<Props>(), {
   modeChoix: 'unique',
-  uniteHorsVdL: false  // Valeur par défaut à false
+  uniteHorsVdL: false,
+  ssServer: '',
+  ssPage: '/goeland/uniteorg/axios/uniteorg_liste.php'
 })
+
 const modeChoix = ref<string>(props.modeChoix)
 watch(() => props.modeChoix, (newValue) => {
   modeChoix.value = newValue
@@ -670,7 +675,17 @@ watch(() => props.uniteHorsVdL, (newValue) => {
   buniteHorVdL.value = newValue
 })
 
-const unitesOrgListe: UnitesOrg = await getUnitesOrgListe()
+const ssServer: string = props.ssServer
+watch(() => props.ssServer, (newValue) => {
+  ssServer = newValue
+})
+
+const ssPage: string = props.ssPage
+watch(() => props.ssPage, (newValue) => {
+  ssPage = newValue
+})
+
+const unitesOrgListe: UnitesOrg = await getUnitesOrgListe(ssServer, ssPage)
 const unitesOrgTree = ref<UniteOrgTree[]>(transforUOListe2UOTree(unitesOrgListe))
 console.log(unitesOrgTree.value)
 
@@ -694,7 +709,13 @@ function transforUOListe2UOTree(unitesOrgListe: UniteOrg[]): UniteOrgTree[] {
     })
 
     // Fonction récursive pour construire l'arbre
-    const buildTreeRecursive = (parentId: number | null): UniteOrgTree[] => {
+    const buildTreeRecursive = (parentId: number | null, depth: number = 0): UniteOrgTree[] => {
+        // Vérifier la profondeur de récursion
+        const maxdepth: number = 50
+        if (depth >= maxdepth) {
+            console.warn(`Limite de récursion atteinte (${maxdepth} niveaux). Possible référence cyclique détectée.`)
+            return [];
+        }
         // Filtrer les unités organisationnelles qui ont le parentId donné
         const childrenUnites = unitesOrgListe.filter(
             uniteOrg => uniteOrg.iduoparente === parentId
@@ -705,7 +726,7 @@ function transforUOListe2UOTree(unitesOrgListe: UniteOrg[]): UniteOrgTree[] {
             const treeNode = createTreeNode(uniteOrg)
             
             // Récursivement ajouter les enfants
-            treeNode.enfants = buildTreeRecursive(uniteOrg.iduniteorg)
+            treeNode.enfants = buildTreeRecursive(uniteOrg.iduniteorg, depth + 1)
             
             return treeNode
         })
