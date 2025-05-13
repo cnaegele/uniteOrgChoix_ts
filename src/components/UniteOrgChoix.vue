@@ -8,7 +8,7 @@
                 >Choix terminé</v-btn>
             </v-col>
         </v-row>
-        <v-row v-for="(uo, index) in unitesOrgTree" :key="uo.id">
+        <v-row v-for="(uon0, index) in unitesOrgTree" :key="uon0.id">
             <v-col>
                 <!-- Niveau 0 -->
                 <v-expansion-panels v-model="panelN0">
@@ -16,20 +16,20 @@
                         <v-expansion-panel-title>
                             <div class="d-flex align-center">
                                 <v-checkbox v-if="modeChoix=='multiple'"
-                                    v-model="uo.bcheck"
+                                    v-model="uon0.bcheck"
                                     density="compact"
                                     hide-details
                                     class="mt-0 pt-0 mr-2"
-                                    @click.stop="choixMultiple(uo)"
+                                    @click.stop="choixMultiple(uon0)"
                                 ></v-checkbox>
                                 <v-checkbox v-else
-                                    v-model="uo.bcheck"
+                                    v-model="uon0.bcheck"
                                     density="compact"
                                     hide-details
                                     class="mt-0 pt-0 mr-2"
-                                    @click.stop="choix(uo)"
+                                    @click.stop="choix(uon0)"
                                 ></v-checkbox>
-                                <v-tooltip :text="uo.description">
+                                <v-tooltip :text="uon0.description">
                                     <template v-slot:activator="{ props }">
                                         <v-btn
                                             v-bind:=props
@@ -37,7 +37,7 @@
                                             size="small"
                                             variant="flat"
                                         >
-                                            {{ uo.nom }}
+                                            {{ uon0.nom }}
                                         </v-btn>
                                     </template>
                                 </v-tooltip>
@@ -45,25 +45,25 @@
                         </v-expansion-panel-title>
                         <v-expansion-panel-text>
                             <!-- Niveau 1 directions -->
-                            <div v-for="(uo, index) in uo.enfants" :key="uo.id">
-                                <div v-if="uo.enfants.length === 0 && (uo.bcache === 0 || buniteHorVdL)">
+                            <div v-for="(uon1, index) in uon0.enfants" :key="uon1.id">
+                                <div v-if="uon1.enfants.length === 0 && (uon1.bcache === 0 || buniteHorVdL)">
                                     <div class="d-flex align-center">
                                         <span class="spnalign"></span>
                                         <v-checkbox  v-if="modeChoix=='multiple'"
-                                            v-model="uo.bcheck"
+                                            v-model="uon1.bcheck"
                                             density="compact"
                                             hide-details
                                             class="mt-0 pt-0 mr-2"
-                                            @click.stop="choixMultiple(uo)"
+                                            @click.stop="choixMultiple(uon1)"
                                         ></v-checkbox>
                                         <v-checkbox v-else
-                                            v-model="uo.bcheck"
+                                            v-model="uon1.bcheck"
                                             density="compact"
                                             hide-details
                                             class="mt-0 pt-0 mr-2"
-                                            @click.stop="choix(uo)"
+                                            @click.stop="choix(uon1)"
                                         ></v-checkbox>
-                                        <v-tooltip :text="uo.description">
+                                        <v-tooltip :text="uon1.description">
                                             <template v-slot:activator="{ props }">
                                                 <v-btn
                                                     v-bind:=props
@@ -71,32 +71,32 @@
                                                     size="small"
                                                     variant="flat"
                                                 >
-                                                    {{ uo.nom }}
+                                                    {{ uon1.nom }}
                                                 </v-btn>
                                             </template>
                                         </v-tooltip>                                                
                                     </div>
                                 </div>    
-                                <div v-else-if="uo.bcache === 0 || buniteHorVdL">
+                                <div v-else-if="uon1.bcache === 0 || buniteHorVdL">
                                     <v-expansion-panels>
                                         <v-expansion-panel>
                                             <v-expansion-panel-title>
                                                 <div class="d-flex align-center">
                                                     <v-checkbox v-if="modeChoix=='multiple'"
-                                                        v-model="uo.bcheck" 
+                                                        v-model="uon1.bcheck" 
                                                         density="compact"
                                                         hide-details
                                                         class="mt-0 pt-0 mr-2"
-                                                        @click.stop="choixMultiple(uo)"
+                                                        @click.stop="choixMultiple(uon1)"
                                                     ></v-checkbox>
                                                     <v-checkbox v-else
-                                                        v-model="uo.bcheck" 
+                                                        v-model="uon1.bcheck" 
                                                         density="compact"
                                                         hide-details
                                                         class="mt-0 pt-0 mr-2"
-                                                        @click.stop="choix(uo)"
+                                                        @click.stop="choix(uon1)"
                                                     ></v-checkbox>
-                                                    <v-tooltip :text="uo.description">
+                                                    <v-tooltip :text="uon1.description">
                                                         <template v-slot:activator="{ props }">
                                                             <v-btn
                                                                 v-bind:=props
@@ -104,7 +104,7 @@
                                                                 size="small"
                                                                 variant="flat"
                                                             >
-                                                                {{ uo.nom }}
+                                                                {{ uon1.nom }}
                                                             </v-btn>
                                                         </template>
                                                     </v-tooltip>
@@ -112,25 +112,25 @@
                                             </v-expansion-panel-title>
                                             <v-expansion-panel-text>
                                                 <!-- Niveau 2 services -->
-                                                <div v-for="(uo, index) in uo.enfants" :key="uo.id">
-                                                    <div v-if="uo.enfants.length === 0">
+                                                <div v-for="(uon2, index) in uon1.enfants" :key="uon2.id">
+                                                    <div v-if="uon2.enfants.length === 0">
                                                         <div class="d-flex align-center">
                                                             <span class="spnalign"></span>
                                                             <v-checkbox  v-if="modeChoix=='multiple'"
-                                                                v-model="uo.bcheck" 
+                                                                v-model="uon2.bcheck" 
                                                                 density="compact"
                                                                 hide-details
                                                                 class="mt-0 pt-0 mr-2"
-                                                                @click.stop="choixMultiple(uo)"
+                                                                @click.stop="choixMultiple(uon2)"
                                                             ></v-checkbox>
                                                             <v-checkbox  v-else
-                                                                v-model="uo.bcheck" 
+                                                                v-model="uon2.bcheck" 
                                                                 density="compact"
                                                                 hide-details
                                                                 class="mt-0 pt-0 mr-2"
-                                                                @click.stop="choix(uo)"
+                                                                @click.stop="choix(uon2)"
                                                             ></v-checkbox>
-                                                            <v-tooltip :text="uo.description">
+                                                            <v-tooltip :text="uon2.description">
                                                                 <template v-slot:activator="{ props }">
                                                                     <v-btn
                                                                         v-bind:=props
@@ -138,7 +138,7 @@
                                                                         size="small"
                                                                         variant="flat"
                                                                     >
-                                                                        {{ uo.nom }}
+                                                                        {{ uon2.nom }}
                                                                     </v-btn>
                                                                 </template>
                                                             </v-tooltip>
@@ -150,20 +150,20 @@
                                                                 <v-expansion-panel-title>
                                                                     <div class="d-flex align-center">
                                                                         <v-checkbox v-if="modeChoix=='multiple'"
-                                                                            v-model="uo.bcheck" 
+                                                                            v-model="uon2.bcheck" 
                                                                             density="compact"
                                                                             hide-details
                                                                             class="mt-0 pt-0 mr-2"
-                                                                            @click.stop="choixMultiple(uo)"
+                                                                            @click.stop="choixMultiple(uon2)"
                                                                         ></v-checkbox>
                                                                         <v-checkbox v-else
-                                                                            v-model="uo.bcheck" 
+                                                                            v-model="uon2.bcheck" 
                                                                             density="compact"
                                                                             hide-details
                                                                             class="mt-0 pt-0 mr-2"
-                                                                            @click.stop="choix(uo)"
+                                                                            @click.stop="choix(uon2)"
                                                                         ></v-checkbox>
-                                                                        <v-tooltip :text="uo.description">
+                                                                        <v-tooltip :text="uon2.description">
                                                                             <template v-slot:activator="{ props }">
                                                                                 <v-btn
                                                                                     v-bind:=props
@@ -171,7 +171,7 @@
                                                                                     size="small"
                                                                                     variant="flat"
                                                                                 >
-                                                                                    {{ uo.nom }}
+                                                                                    {{ uon2.nom }}
                                                                                 </v-btn>
                                                                             </template>
                                                                         </v-tooltip>
@@ -179,25 +179,25 @@
                                                                 </v-expansion-panel-title>
                                                                 <v-expansion-panel-text>
                                                                     <!-- Niveau 3 sous-services -->
-                                                                    <div v-for="(uo, index) in uo.enfants" :key="uo.id">
-                                                                        <div v-if="uo.enfants.length === 0">
+                                                                    <div v-for="(uon3, index) in uon2.enfants" :key="uon3.id">
+                                                                        <div v-if="uon3.enfants.length === 0">
                                                                             <div class="d-flex align-center">
                                                                                 <span class="spnalign"></span>
                                                                                 <v-checkbox  v-if="modeChoix=='multiple'"
-                                                                                    v-model="uo.bcheck"
+                                                                                    v-model="uon3.bcheck"
                                                                                     density="compact"
                                                                                     hide-details
                                                                                     class="mt-0 pt-0 mr-2"
-                                                                                    @click.stop="choixMultiple(uo)"
+                                                                                    @click.stop="choixMultiple(uon3)"
                                                                                 ></v-checkbox>
                                                                                 <v-checkbox  v-else
-                                                                                    v-model="uo.bcheck"
+                                                                                    v-model="uon3.bcheck"
                                                                                     density="compact"
                                                                                     hide-details
                                                                                     class="mt-0 pt-0 mr-2"
-                                                                                    @click.stop="choix(uo)"
+                                                                                    @click.stop="choix(uon3)"
                                                                                 ></v-checkbox>
-                                                                               <v-tooltip :text="uo.description">
+                                                                               <v-tooltip :text="uon3.description">
                                                                                     <template v-slot:activator="{ props }">
                                                                                         <v-btn
                                                                                             v-bind:=props
@@ -205,7 +205,7 @@
                                                                                             size="small"
                                                                                             variant="flat"
                                                                                         >
-                                                                                            {{ uo.nom }}
+                                                                                            {{ uon3.nom }}
                                                                                         </v-btn>
                                                                                     </template>
                                                                                 </v-tooltip>
@@ -217,20 +217,20 @@
                                                                                     <v-expansion-panel-title>
                                                                                         <div class="d-flex align-center">
                                                                                             <v-checkbox v-if="modeChoix=='multiple'"
-                                                                                                v-model="uo.bcheck"
+                                                                                                v-model="uon3.bcheck"
                                                                                                 density="compact"
                                                                                                 hide-details
                                                                                                 class="mt-0 pt-0 mr-2"
-                                                                                                @click.stop="choixMultiple(uo)"
+                                                                                                @click.stop="choixMultiple(uon3)"
                                                                                             ></v-checkbox>
                                                                                             <v-checkbox v-else
-                                                                                                v-model="uo.bcheck"
+                                                                                                v-model="uon3.bcheck"
                                                                                                 density="compact"
                                                                                                 hide-details
                                                                                                 class="mt-0 pt-0 mr-2"
-                                                                                                @click.stop="choix(uo)"
+                                                                                                @click.stop="choix(uon3)"
                                                                                             ></v-checkbox>
-                                                                                           <v-tooltip :text="uo.description">
+                                                                                           <v-tooltip :text="uon3.description">
                                                                                                 <template v-slot:activator="{ props }">
                                                                                                     <v-btn
                                                                                                         v-bind:=props
@@ -238,7 +238,7 @@
                                                                                                         size="small"
                                                                                                         variant="flat"
                                                                                                     >
-                                                                                                        {{ uo.nom }}
+                                                                                                        {{ uon3.nom }}
                                                                                                     </v-btn>
                                                                                                 </template>
                                                                                             </v-tooltip>
@@ -246,25 +246,25 @@
                                                                                     </v-expansion-panel-title>
                                                                                     <v-expansion-panel-text>
                                                                                         <!-- Niveau 4 -->
-                                                                                        <div v-for="(uo, index) in uo.enfants" :key="uo.id">
-                                                                                            <div v-if="uo.enfants.length === 0">
+                                                                                        <div v-for="(uon4, index) in uon3.enfants" :key="uon4.id">
+                                                                                            <div v-if="uon4.enfants.length === 0">
                                                                                                 <div class="d-flex align-center">
                                                                                                     <span class="spnalign"></span>
                                                                                                     <v-checkbox  v-if="modeChoix=='multiple'"
-                                                                                                        v-model="uo.bcheck"
+                                                                                                        v-model="uon4.bcheck"
                                                                                                         density="compact"
                                                                                                         hide-details
                                                                                                         class="mt-0 pt-0 mr-2"
-                                                                                                        @click.stop="choixMultiple(uo)"
+                                                                                                        @click.stop="choixMultiple(uon4)"
                                                                                                     ></v-checkbox>
                                                                                                     <v-checkbox  v-else
-                                                                                                        v-model="uo.bcheck"
+                                                                                                        v-model="uon4.bcheck"
                                                                                                         density="compact"
                                                                                                         hide-details
                                                                                                         class="mt-0 pt-0 mr-2"
-                                                                                                        @click.stop="choix(uo)"
+                                                                                                        @click.stop="choix(uon4)"
                                                                                                     ></v-checkbox>
-                                                                                                    <v-tooltip :text="uo.description">
+                                                                                                    <v-tooltip :text="uon4.description">
                                                                                                         <template v-slot:activator="{ props }">
                                                                                                             <v-btn
                                                                                                                 v-bind:=props
@@ -272,7 +272,7 @@
                                                                                                                 size="small"
                                                                                                                 variant="flat"
                                                                                                             >
-                                                                                                                {{ uo.nom }}
+                                                                                                                {{ uon4.nom }}
                                                                                                             </v-btn>
                                                                                                         </template>
                                                                                                     </v-tooltip>
@@ -284,20 +284,20 @@
                                                                                                         <v-expansion-panel-title>
                                                                                                             <div class="d-flex align-center">
                                                                                                                 <v-checkbox v-if="modeChoix=='multiple'"
-                                                                                                                    v-model="uo.bcheck"
+                                                                                                                    v-model="uon4.bcheck"
                                                                                                                     density="compact"
                                                                                                                     hide-details
                                                                                                                     class="mt-0 pt-0 mr-2"
-                                                                                                                    @click.stop="choixMultiple(uo)"
+                                                                                                                    @click.stop="choixMultiple(uon4)"
                                                                                                                 ></v-checkbox>
                                                                                                                 <v-checkbox v-else
-                                                                                                                    v-model="uo.bcheck"
+                                                                                                                    v-model="uon4.bcheck"
                                                                                                                     density="compact"
                                                                                                                     hide-details
                                                                                                                     class="mt-0 pt-0 mr-2"
-                                                                                                                    @click.stop="choix(uo)"
+                                                                                                                    @click.stop="choix(uon4)"
                                                                                                                 ></v-checkbox>
-                                                                                                                <v-tooltip :text="uo.description">
+                                                                                                                <v-tooltip :text="uon4.description">
                                                                                                                     <template v-slot:activator="{ props }">
                                                                                                                         <v-btn
                                                                                                                             v-bind:=props
@@ -305,7 +305,7 @@
                                                                                                                             size="small"
                                                                                                                             variant="flat"
                                                                                                                         >
-                                                                                                                            {{ uo.nom }}
+                                                                                                                            {{ uon4.nom }}
                                                                                                                         </v-btn>
                                                                                                                     </template>
                                                                                                                 </v-tooltip>
@@ -313,25 +313,25 @@
                                                                                                         </v-expansion-panel-title>
                                                                                                         <v-expansion-panel-text>
                                                                                                             <!-- Niveau 5 -->
-                                                                                                            <div v-for="(uo, index) in uo.enfants" :key="uo.id">
-                                                                                                                <div v-if="uo.enfants.length === 0">
+                                                                                                            <div v-for="(uon5, index) in uon4.enfants" :key="uon5.id">
+                                                                                                                <div v-if="uon5.enfants.length === 0">
                                                                                                                     <div class="d-flex align-center">
                                                                                                                         <span class="spnalign"></span>
                                                                                                                         <v-checkbox  v-if="modeChoix=='multiple'"
-                                                                                                                            v-model="uo.bcheck"
+                                                                                                                            v-model="uon5.bcheck"
                                                                                                                             density="compact"
                                                                                                                             hide-details
                                                                                                                             class="mt-0 pt-0 mr-2"
-                                                                                                                            @click.stop="choixMultiple(uo)"
+                                                                                                                            @click.stop="choixMultiple(uon5)"
                                                                                                                         ></v-checkbox>
                                                                                                                         <v-checkbox  v-else
-                                                                                                                            v-model="uo.bcheck"
+                                                                                                                            v-model="uon5.bcheck"
                                                                                                                             density="compact"
                                                                                                                             hide-details
                                                                                                                             class="mt-0 pt-0 mr-2"
-                                                                                                                            @click.stop="choix(uo)"
+                                                                                                                            @click.stop="choix(uon5)"
                                                                                                                         ></v-checkbox>
-                                                                                                                        <v-tooltip :text="uo.description">
+                                                                                                                        <v-tooltip :text="uon5.description">
                                                                                                                             <template v-slot:activator="{ props }">
                                                                                                                                 <v-btn
                                                                                                                                     v-bind:=props
@@ -339,7 +339,7 @@
                                                                                                                                     size="small"
                                                                                                                                     variant="flat"
                                                                                                                                 >
-                                                                                                                                    {{ uo.nom }}
+                                                                                                                                    {{ uon5.nom }}
                                                                                                                                 </v-btn>
                                                                                                                             </template>
                                                                                                                         </v-tooltip>
@@ -351,20 +351,20 @@
                                                                                                                             <v-expansion-panel-title>
                                                                                                                                 <div class="d-flex align-center">
                                                                                                                                     <v-checkbox v-if="modeChoix=='multiple'"
-                                                                                                                                        v-model="uo.bcheck"
+                                                                                                                                        v-model="uon5.bcheck"
                                                                                                                                         density="compact"
                                                                                                                                         hide-details
                                                                                                                                         class="mt-0 pt-0 mr-2"
-                                                                                                                                        @click.stop="choixMultiple(uo)"
+                                                                                                                                        @click.stop="choixMultiple(uon5)"
                                                                                                                                     ></v-checkbox>
                                                                                                                                     <v-checkbox v-else
-                                                                                                                                        v-model="uo.bcheck"
+                                                                                                                                        v-model="uon5.bcheck"
                                                                                                                                         density="compact"
                                                                                                                                         hide-details
                                                                                                                                         class="mt-0 pt-0 mr-2"
-                                                                                                                                        @click.stop="choix(uo)"
+                                                                                                                                        @click.stop="choix(uon5)"
                                                                                                                                     ></v-checkbox>
-                                                                                                                                    <v-tooltip :text="uo.description">
+                                                                                                                                    <v-tooltip :text="uon5.description">
                                                                                                                                         <template v-slot:activator="{ props }">
                                                                                                                                             <v-btn
                                                                                                                                                 v-bind:=props
@@ -372,7 +372,7 @@
                                                                                                                                                 size="small"
                                                                                                                                                 variant="flat"
                                                                                                                                             >
-                                                                                                                                                {{ uo.nom }}
+                                                                                                                                                {{ uon5.nom }}
                                                                                                                                             </v-btn>
                                                                                                                                         </template>
                                                                                                                                     </v-tooltip>
@@ -380,25 +380,25 @@
                                                                                                                             </v-expansion-panel-title>
                                                                                                                             <v-expansion-panel-text>
                                                                                                                                 <!-- Niveau 6 -->
-                                                                                                                                <div v-for="(uo, index) in uo.enfants" :key="uo.id">
-                                                                                                                                    <div v-if="uo.enfants.length === 0">
+                                                                                                                                <div v-for="(uon6, index) in uon5.enfants" :key="uon6.id">
+                                                                                                                                    <div v-if="uon6.enfants.length === 0">
                                                                                                                                         <div class="d-flex align-center">
                                                                                                                                             <span class="spnalign"></span>
                                                                                                                                             <v-checkbox  v-if="modeChoix=='multiple'"
-                                                                                                                                                v-model="uo.bcheck"
+                                                                                                                                                v-model="uon6.bcheck"
                                                                                                                                                 density="compact"
                                                                                                                                                 hide-details
                                                                                                                                                 class="mt-0 pt-0 mr-2"
-                                                                                                                                                @click.stop="choixMultiple(uo)"
+                                                                                                                                                @click.stop="choixMultiple(uon6)"
                                                                                                                                             ></v-checkbox>
                                                                                                                                             <v-checkbox  v-else
-                                                                                                                                                v-model="uo.bcheck"
+                                                                                                                                                v-model="uon6.bcheck"
                                                                                                                                                 density="compact"
                                                                                                                                                 hide-details
                                                                                                                                                 class="mt-0 pt-0 mr-2"
-                                                                                                                                                @click.stop="choix(uo)"
+                                                                                                                                                @click.stop="choix(uon6)"
                                                                                                                                             ></v-checkbox>
-                                                                                                                                            <v-tooltip :text="uo.description">
+                                                                                                                                            <v-tooltip :text="uon6.description">
                                                                                                                                                 <template v-slot:activator="{ props }">
                                                                                                                                                     <v-btn
                                                                                                                                                         v-bind:=props
@@ -406,7 +406,7 @@
                                                                                                                                                         size="small"
                                                                                                                                                         variant="flat"
                                                                                                                                                     >
-                                                                                                                                                        {{ uo.nom }}
+                                                                                                                                                        {{ uon6.nom }}
                                                                                                                                                     </v-btn>
                                                                                                                                                 </template>
                                                                                                                                             </v-tooltip>
@@ -418,20 +418,20 @@
                                                                                                                                                 <v-expansion-panel-title>
                                                                                                                                                     <div class="d-flex align-center">
                                                                                                                                                         <v-checkbox v-if="modeChoix=='multiple'"
-                                                                                                                                                            v-model="uo.bcheck"
+                                                                                                                                                            v-model="uon6.bcheck"
                                                                                                                                                             density="compact"
                                                                                                                                                             hide-details
                                                                                                                                                             class="mt-0 pt-0 mr-2"
-                                                                                                                                                            @click.stop="choixMultiple(uo)"
+                                                                                                                                                            @click.stop="choixMultiple(uon6)"
                                                                                                                                                         ></v-checkbox>
                                                                                                                                                         <v-checkbox v-else
-                                                                                                                                                            v-model="uo.bcheck"
+                                                                                                                                                            v-model="uon6.bcheck"
                                                                                                                                                             density="compact"
                                                                                                                                                             hide-details
                                                                                                                                                             class="mt-0 pt-0 mr-2"
-                                                                                                                                                            @click.stop="choix(uo)"
+                                                                                                                                                            @click.stop="choix(uon6)"
                                                                                                                                                         ></v-checkbox>
-                                                                                                                                                        <v-tooltip :text="uo.description">
+                                                                                                                                                        <v-tooltip :text="uon6.description">
                                                                                                                                                             <template v-slot:activator="{ props }">
                                                                                                                                                                 <v-btn
                                                                                                                                                                     v-bind:=props
@@ -439,7 +439,7 @@
                                                                                                                                                                     size="small"
                                                                                                                                                                     variant="flat"
                                                                                                                                                                 >
-                                                                                                                                                                    {{ uo.nom }}
+                                                                                                                                                                    {{ uon6.nom }}
                                                                                                                                                                 </v-btn>
                                                                                                                                                             </template>
                                                                                                                                                         </v-tooltip>
@@ -447,25 +447,25 @@
                                                                                                                                                 </v-expansion-panel-title>
                                                                                                                                                 <v-expansion-panel-text>
                                                                                                                                                 <!-- Niveau 7 -->
-                                                                                                                                                <div v-for="(uo, index) in uo.enfants" :key="uo.id">
-                                                                                                                                                    <div v-if="uo.enfants.length === 0">
+                                                                                                                                                <div v-for="(uon7, index) in uon6.enfants" :key="uon7.id">
+                                                                                                                                                    <div v-if="uon7.enfants.length === 0">
                                                                                                                                                         <div class="d-flex align-center">
                                                                                                                                                             <span class="spnalign"></span>
                                                                                                                                                             <v-checkbox  v-if="modeChoix=='multiple'"
-                                                                                                                                                                v-model="uo.bcheck"
+                                                                                                                                                                v-model="uon7.bcheck"
                                                                                                                                                                 density="compact"
                                                                                                                                                                 hide-details
                                                                                                                                                                 class="mt-0 pt-0 mr-2"
-                                                                                                                                                                @click.stop="choixMultiple(uo)"
+                                                                                                                                                                @click.stop="choixMultiple(uon7)"
                                                                                                                                                             ></v-checkbox>
                                                                                                                                                             <v-checkbox  v-else
-                                                                                                                                                                v-model="uo.bcheck"
+                                                                                                                                                                v-model="uon7.bcheck"
                                                                                                                                                                 density="compact"
                                                                                                                                                                 hide-details
                                                                                                                                                                 class="mt-0 pt-0 mr-2"
-                                                                                                                                                                @click.stop="choix(uo)"
+                                                                                                                                                                @click.stop="choix(uon7)"
                                                                                                                                                             ></v-checkbox>
-                                                                                                                                                            <v-tooltip :text="uo.description">
+                                                                                                                                                            <v-tooltip :text="uon7.description">
                                                                                                                                                                 <template v-slot:activator="{ props }">
                                                                                                                                                                     <v-btn
                                                                                                                                                                         v-bind:=props
@@ -473,7 +473,7 @@
                                                                                                                                                                         size="small"
                                                                                                                                                                         variant="flat"
                                                                                                                                                                     >
-                                                                                                                                                                        {{ uo.nom }}
+                                                                                                                                                                        {{ uon7.nom }}
                                                                                                                                                                     </v-btn>
                                                                                                                                                                 </template>
                                                                                                                                                             </v-tooltip>
@@ -485,20 +485,20 @@
                                                                                                                                                                 <v-expansion-panel-title>
                                                                                                                                                                     <div class="d-flex align-center">
                                                                                                                                                                         <v-checkbox v-if="modeChoix=='multiple'"
-                                                                                                                                                                            v-model="uo.bcheck"
+                                                                                                                                                                            v-model="uon7.bcheck"
                                                                                                                                                                             density="compact"
                                                                                                                                                                             hide-details
                                                                                                                                                                             class="mt-0 pt-0 mr-2"
-                                                                                                                                                                            @click.stop="choixMultiple(uo)"
+                                                                                                                                                                            @click.stop="choixMultiple(uon7)"
                                                                                                                                                                         ></v-checkbox>
                                                                                                                                                                         <v-checkbox v-else
-                                                                                                                                                                            v-model="uo.bcheck"
+                                                                                                                                                                            v-model="uon7.bcheck"
                                                                                                                                                                             density="compact"
                                                                                                                                                                             hide-details
                                                                                                                                                                             class="mt-0 pt-0 mr-2"
-                                                                                                                                                                            @click.stop="choix(uo)"
+                                                                                                                                                                            @click.stop="choix(uon7)"
                                                                                                                                                                         ></v-checkbox>
-                                                                                                                                                                        <v-tooltip :text="uo.description">
+                                                                                                                                                                        <v-tooltip :text="uon7.description">
                                                                                                                                                                             <template v-slot:activator="{ props }">
                                                                                                                                                                                 <v-btn
                                                                                                                                                                                     v-bind:=props
@@ -506,7 +506,7 @@
                                                                                                                                                                                     size="small"
                                                                                                                                                                                     variant="flat"
                                                                                                                                                                                 >
-                                                                                                                                                                                    {{ uo.nom }}
+                                                                                                                                                                                    {{ uon7.nom }}
                                                                                                                                                                                 </v-btn>
                                                                                                                                                                             </template>
                                                                                                                                                                         </v-tooltip>
@@ -514,25 +514,25 @@
                                                                                                                                                                 </v-expansion-panel-title>
                                                                                                                                                                 <v-expansion-panel-text>
                                                                                                                                                                 <!-- Niveau 8 -->
-                                                                                                                                                                <div v-for="(uo, index) in uo.enfants" :key="uo.id">
-                                                                                                                                                                    <div v-if="uo.enfants.length === 0">
+                                                                                                                                                                <div v-for="(uon8, index) in uon7.enfants" :key="uon8.id">
+                                                                                                                                                                    <div v-if="uon8.enfants.length === 0">
                                                                                                                                                                         <div class="d-flex align-center">
                                                                                                                                                                             <span class="spnalign"></span>
                                                                                                                                                                             <v-checkbox  v-if="modeChoix=='multiple'"
-                                                                                                                                                                                v-model="uo.bcheck"
+                                                                                                                                                                                v-model="uon8.bcheck"
                                                                                                                                                                                 density="compact"
                                                                                                                                                                                 hide-details
                                                                                                                                                                                 class="mt-0 pt-0 mr-2"
-                                                                                                                                                                                @click.stop="choixMultiple(uo)"
+                                                                                                                                                                                @click.stop="choixMultiple(uon8)"
                                                                                                                                                                             ></v-checkbox>
                                                                                                                                                                             <v-checkbox  v-else
-                                                                                                                                                                                v-model="uo.bcheck"
+                                                                                                                                                                                v-model="uon8.bcheck"
                                                                                                                                                                                 density="compact"
                                                                                                                                                                                 hide-details
                                                                                                                                                                                 class="mt-0 pt-0 mr-2"
-                                                                                                                                                                                @click.stop="choix(uo)"
+                                                                                                                                                                                @click.stop="choix(uon8)"
                                                                                                                                                                             ></v-checkbox>
-                                                                                                                                                                            <v-tooltip :text="uo.description">
+                                                                                                                                                                            <v-tooltip :text="uon8.description">
                                                                                                                                                                                 <template v-slot:activator="{ props }">
                                                                                                                                                                                     <v-btn
                                                                                                                                                                                         v-bind:=props
@@ -540,7 +540,7 @@
                                                                                                                                                                                         size="small"
                                                                                                                                                                                         variant="flat"
                                                                                                                                                                                     >
-                                                                                                                                                                                        {{ uo.nom }}
+                                                                                                                                                                                        {{ uon8.nom }}
                                                                                                                                                                                     </v-btn>
                                                                                                                                                                                 </template>
                                                                                                                                                                             </v-tooltip>
@@ -552,20 +552,20 @@
                                                                                                                                                                                 <v-expansion-panel-title>
                                                                                                                                                                                     <div class="d-flex align-center">
                                                                                                                                                                                         <v-checkbox v-if="modeChoix=='multiple'"
-                                                                                                                                                                                            v-model="uo.bcheck"
+                                                                                                                                                                                            v-model="uon8.bcheck"
                                                                                                                                                                                             density="compact"
                                                                                                                                                                                             hide-details
                                                                                                                                                                                             class="mt-0 pt-0 mr-2"
-                                                                                                                                                                                            @click.stop="choixMultiple(uo)"
+                                                                                                                                                                                            @click.stop="choixMultiple(uon8)"
                                                                                                                                                                                         ></v-checkbox>
                                                                                                                                                                                         <v-checkbox v-else
-                                                                                                                                                                                            v-model="uo.bcheck"
+                                                                                                                                                                                            v-model="uon8.bcheck"
                                                                                                                                                                                             density="compact"
                                                                                                                                                                                             hide-details
                                                                                                                                                                                             class="mt-0 pt-0 mr-2"
-                                                                                                                                                                                            @click.stop="choix(uo)"
+                                                                                                                                                                                            @click.stop="choix(uon8)"
                                                                                                                                                                                         ></v-checkbox>
-                                                                                                                                                                                        <v-tooltip :text="uo.description">
+                                                                                                                                                                                        <v-tooltip :text="uon8.description">
                                                                                                                                                                                             <template v-slot:activator="{ props }">
                                                                                                                                                                                                 <v-btn
                                                                                                                                                                                                     v-bind:=props
@@ -573,7 +573,7 @@
                                                                                                                                                                                                     size="small"
                                                                                                                                                                                                     variant="flat"
                                                                                                                                                                                                 >
-                                                                                                                                                                                                    {{ uo.nom }}
+                                                                                                                                                                                                    {{ uon8.nom }}
                                                                                                                                                                                                 </v-btn>
                                                                                                                                                                                             </template>
                                                                                                                                                                                         </v-tooltip>
@@ -627,12 +627,13 @@
                 </v-expansion-panels>
             </v-col>
         </v-row>
-    </v-container></template>
+    </v-container>
+</template>
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { getUnitesOrgListe } from '@/axioscalls.js'
-import type { UniteOrg }  from '@/axioscalls.js'
+import type { UniteOrg, ApiResponse }  from '@/axioscalls.js'
 
 interface Props {
   modeChoix?: string
@@ -675,10 +676,12 @@ watch(() => props.uniteHorsVdL, (newValue) => {
   buniteHorVdL.value = newValue
 })
 
-const ssServer: string = props.ssServer
-const ssPage: string = props.ssPage
+const ssServer = ref<string>(props.ssServer)
+const ssPage = ref<string>(props.ssPage)
 
-const unitesOrgListe: UnitesOrg = await getUnitesOrgListe(ssServer, ssPage)
+const response: ApiResponse = await getUnitesOrgListe(ssServer.value, ssPage.value)
+const unitesOrgListe: UniteOrg[] = response.success && response.data ? response.data : []
+
 const unitesOrgTree = ref<UniteOrgTree[]>(transforUOListe2UOTree(unitesOrgListe))
 console.log(unitesOrgTree.value)
 
@@ -770,3 +773,9 @@ const choixTermine = () => {
   emit('choixUniteOrg', JSON.stringify(unitesOrgListeChoisi.value))
 }
 </script>
+
+<style scoped>
+    .spnalign {
+        padding-left: 23px;
+    }
+</style>

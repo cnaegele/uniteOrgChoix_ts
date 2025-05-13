@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type { AxiosResponse, AxiosError } from 'axios'
-interface UniteOrg {
+export interface UniteOrg {
   iduniteorg: number;
   iduoparente: number | null;
   nomuniteorg: string;
@@ -9,8 +9,8 @@ interface UniteOrg {
   codeordre: string;
 }
 
-interface ApiResponse {
-  success: boolean;
+export interface ApiResponse {
+  success?: boolean;
   message?: string;
   data?: UniteOrg[];
 }
@@ -19,8 +19,13 @@ export async function getUnitesOrgListe(server: string = '', page: string, jsonC
     const urluol: string = `${server}${page}`
     const params = new URLSearchParams([['jsoncriteres', jsonCriteres]])
     try {
-        const response: AxiosResponse<ApiResponse> = await axios.get(urluol, { params })
-        return response.data
+        const response: AxiosResponse<UniteOrg[]> = await axios.get(urluol, { params })
+        const respData: ApiResponse = {
+            "success": true,
+            "message": `ok`,
+            "data": response.data
+        }
+        return respData
     } catch (error) {
         return traiteAxiosError(error as AxiosError)
     }
