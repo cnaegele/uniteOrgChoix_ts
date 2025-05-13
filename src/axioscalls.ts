@@ -16,7 +16,6 @@ interface ApiResponse {
 }
 
 export async function getUnitesOrgListe(server: string = '', page: string, jsonCriteres: string = '{}'): Promise<ApiResponse> {
-    const pathurluniteorg: string = '/goeland/uniteorg/axios/'
     const urluol: string = `${server}${page}`
     const params = new URLSearchParams([['jsoncriteres', jsonCriteres]])
     try {

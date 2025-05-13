@@ -676,14 +676,7 @@ watch(() => props.uniteHorsVdL, (newValue) => {
 })
 
 const ssServer: string = props.ssServer
-watch(() => props.ssServer, (newValue) => {
-  ssServer = newValue
-})
-
 const ssPage: string = props.ssPage
-watch(() => props.ssPage, (newValue) => {
-  ssPage = newValue
-})
 
 const unitesOrgListe: UnitesOrg = await getUnitesOrgListe(ssServer, ssPage)
 const unitesOrgTree = ref<UniteOrgTree[]>(transforUOListe2UOTree(unitesOrgListe))
