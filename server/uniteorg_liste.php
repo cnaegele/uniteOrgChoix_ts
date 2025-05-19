@@ -8,8 +8,8 @@ if (isset($_GET['jsoncriteres'])) {
     $oCriteres = json_decode($jsonCriteres, false);
     if (isset($oCriteres->unitehorsvdl)) {
         $bUniteHorsVdL = $oCriteres->unitehorsvdl;
-        if ($bUniteHorsVdL) {
-            $prmUniteHorsVdL = '1';
+        if (!$bUniteHorsVdL) {
+            $prmUniteHorsVdL = '0';
         }
     }
 }
