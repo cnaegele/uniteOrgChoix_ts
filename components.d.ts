@@ -9,5 +9,6 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     UniteOrgChoix: typeof import('./src/components/UniteOrgChoix.vue')['default']
+    UniteOrgNode: typeof import('./src/components/UniteOrgNode.vue')['default']
   }
 }

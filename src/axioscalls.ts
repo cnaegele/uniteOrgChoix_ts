@@ -16,6 +16,7 @@ export interface ApiResponse {
 }
 
 export async function getUnitesOrgListe(server: string = '', page: string, jsonCriteres: string = '{}'): Promise<ApiResponse> {
+    console.log(jsonCriteres)
     const urluol: string = `${server}${page}`
     const params = new URLSearchParams([['jsoncriteres', jsonCriteres]])
     try {
@@ -25,6 +26,7 @@ export async function getUnitesOrgListe(server: string = '', page: string, jsonC
             "message": `ok`,
             "data": response.data
         }
+        console.log(respData)
         return respData
     } catch (error) {
         return traiteAxiosError(error as AxiosError)
