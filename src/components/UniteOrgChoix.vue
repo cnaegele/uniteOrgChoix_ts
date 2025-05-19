@@ -73,7 +73,7 @@ watch(() => props.uniteHorsVdL, (newValue) => {
 
 const ssServer = ref<string>(props.ssServer)
 const ssPage = ref<string>(props.ssPage)
-const jsonCriteres: { uniteHorsVdl: boolean } = { "uniteHorsVdl" : buniteHorsVdL.value }
+const jsonCriteres: { unitehorsvdl: boolean } = { "unitehorsvdl" : buniteHorsVdL.value }
 
 const response: ApiResponse = await getUnitesOrgListe(ssServer.value, ssPage.value, JSON.stringify(jsonCriteres))
 const unitesOrgListe: UniteOrg[] = response.success && response.data ? response.data : []
